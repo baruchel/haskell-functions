@@ -30,4 +30,4 @@ findRecurrence l =
                        (tail $ scanl (\a b -> b:a) [] (tail l))
       normalize l = let c = (\x -> if (head l)<0 then -x else x)
                               (foldl lcm 1 (map denominator l))%1
-          in map (numerator . (c*)) l
+                      in map (numerator . (c*)) l
