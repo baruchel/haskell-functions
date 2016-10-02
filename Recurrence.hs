@@ -27,6 +27,6 @@ findRecurrence l =
       add q1 [] _ b acc = add q1 [] 1 (b-1) (0%1 : acc)
       add (q1h:q1s) (q2h:q2s) a 0 acc = add q1s q2s a 0 (q2h/a + q1h : acc)
       add q1 (q2h:q2s) a b acc = add q1 q2s a (b-1) (q2h/a : acc)
-      normalize l@(lh:_) = let c = (\x -> if lh < 0 then -x else x)
-                                     (foldl lcm 1 (map denominator l))%1
-                             in map (numerator . (c*)) l
+      normalize l@(lh:_) = map (numerator . 
+                                 (((\x -> if lh < 0 then -x else x)
+                                   (foldl lcm 1 (map denominator l))%1) *)) l
