@@ -14,7 +14,8 @@ findRecurrence l =
   findRecurrence' l [0%1] [1%1] 0
     where
       mmax = div (length l) 2
-      findRecurrence' :: [Rational] -> [Rational] -> [Rational] -> Int -> [Integer]
+      findRecurrence' :: [Rational] -> [Rational] -> [Rational] -> Int
+                           -> [Integer]
       findRecurrence' l q1 q2 b
         | null l           = normalize q2
         | head l == 0      = findRecurrence' (tail l) q1 q2 (b+1)
