@@ -18,7 +18,7 @@ findRecurrence l =
                            -> [Integer]
       findRecurrence' l q1 q2 b
         | null l           = normalize q2
-        | head l == 0      = findRecurrence' (tail l) q1 q2 (b+1)
+        | head l == 0      = findRecurrence' (tail l) q1 q2 (succ b)
         | length q2 > mmax = [0]
         | otherwise        =
             findRecurrence' (tail $ invert l) q2 (add q1 q2 (head l) b []) 1
@@ -30,9 +30,9 @@ findRecurrence l =
       add [] [] _ _ acc = reverse $ dropWhile (0==) acc
       add [] (q2h:q2s) a _ acc = add [] q2s a 0 (q2h/a : acc)
       add (q1h:q1s) [] _ 0 acc = add q1s [] 1 0 (q1h : acc)
-      add q1 [] _ b acc = add q1 [] 1 (b-1) (0%1 : acc)
+      add q1 [] _ b acc = add q1 [] 1 (pred b) (0%1 : acc)
       add (q1h:q1s) (q2h:q2s) a 0 acc = add q1s q2s a 0 (q2h/a + q1h : acc)
-      add q1 (q2h:q2s) a b acc = add q1 q2s a (b-1) (q2h/a : acc)
+      add q1 (q2h:q2s) a b acc = add q1 q2s a (pred b) (q2h/a : acc)
       normalize :: [Rational] -> [Integer]
       normalize l@(lh:_) = map (numerator . 
                                  (((\x -> if lh < 0 then -x else x)
